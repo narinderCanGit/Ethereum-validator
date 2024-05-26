@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+Validator Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Project Objective
+The Validator Tracker is a React application designed to take user input for an Ethereum validator ID or public key and return the validator stats and attestations for the provided index. The beaconcha.in API is utilized for fetching validator information.
 
-## Available Scripts
 
-In the project directory, you can run:
+Features
 
-### `npm start`
+Navigation Header: Provides easy navigation to different parts of the application.
+Sidebar: Contains links to the validator search and the top 10 validators from the leaderboard.
+Validator Tracking: Allows users to input a validator ID or public key to fetch and display validator stats and attestations.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Routes
 
-### `npm test`
+/Welcome: Renders a welcome message and describes the functionality of the application.
+/Validator: Renders a description of the expected input (Validator ID or Pubkey) and an input box that takes a validator ID or pubkey. Upon selection and submission, navigates the user to /Validator/{id or pubkey}.
+/Validator/{id or pubkey}: Renders validator stats and attestations from the beaconcha.in API for the selected validator.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+Components
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Navbar
+The navbar has two elements:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+A navigation link to the welcome view.
+A navigation link to the validator search/input form.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+Sidebar
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The sidebar component:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Contains a link to /Validator.
+Displays links for the first 10 validators from the API leaderboard endpoint, linking to /Validator/{id or pubkey}.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Error Handling
+Uses error boundaries to handle errors gracefully and provide a fallback UI.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Getting Started
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Prerequisites
+Node.js and npm installed on your machine.
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Installation
 
-### Analyzing the Bundle Size
+Clone the repository:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+git clone https://github.com/narinderCanGit/validator-tracker.git
+Navigate to the project directory:
 
-### Making a Progressive Web App
+cd validator-tracker
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Install the dependencies:
 
-### Advanced Configuration
+npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Running the Application
+To start the development server, run: npm start
 
-### Deployment
+The application will be available at http://localhost:3000.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+API Usage
+Fetch Validator Suggestions
+import { fetchValidatorSuggestions } from '../api/api';
+const suggestions = await fetchValidatorSuggestions(userInput);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Fetch Validator Details
+import { fetchValidatorDetails } from '../api/api';
+const details = await fetchValidatorDetails(validatorId);
+
+Fetch attestations Details
+import { fetchAttestationsDetails } from '../api/api';
+const details = await fetchAttestationsDetails(validatorId);
+
+Fetch Validator Leaderboard
+import { fetchValidatorLeaderboard } from '../api/api';
+const leaderboard = await fetchValidatorLeaderboard();
+
+
+Components Overview
+
+ErrorBoundary
+Handles errors in the application and displays a fallback UI with a "Try again" button.
+
+ValidatorSearch
+Handles the input for validator ID or public key and fetches suggestions for autocomplete. Navigates to the detailed validator view upon submission.
+
+ValidatorDetails
+Displays the stats and attestations for a selected validator.
+
+Sidebar
+Displays links to the top 10 validators from the leaderboard.
+
+Navbar
+Provides navigation links to the Welcome and Validator Search pages.
+
+Conclusion
+This project sets up a React application for tracking Ethereum validators using the beaconcha.in API, featuring robust error handling and a clean, user-friendly interface.
