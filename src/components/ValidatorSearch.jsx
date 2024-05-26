@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { fetchValidatorSuggestions } from '../api/api';
 
 const ValidatorSearch = () => {
   const [input, setInput] = useState('');
@@ -11,14 +11,8 @@ const ValidatorSearch = () => {
     const userInput = e.target.value;
     setInput(userInput);
     if (userInput.length >= 3) {
-      try {
-        const result = await axios.get(`https://beaconcha.in/api/v1/validator/${userInput}`);
-        const data = result.data.data ? [result.data.data] : [];
-        setSuggestions(data);
-      } catch (error) {
-        console.error("Error fetching suggestions", error);
-        setSuggestions([]);
-      }
+        const result = await fetchValidatorSuggestions(userInput);
+        setSuggestions(result);
     } else {
       setSuggestions([]);
     }
@@ -46,7 +40,7 @@ const ValidatorSearch = () => {
           onChange={handleChange} 
           placeholder="Validator ID or Pubkey" 
         />
-        <button type="submit">Search</button>
+        <button className="button-search" type="submit">Search</button>
       </form>
       <ul className="suggestions">
         {suggestions.map((suggestion, index) => (

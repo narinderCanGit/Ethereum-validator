@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { fetchValidatorAttestationsApi, fetchValidatorDetailsApi } from '../api/api';
 
 const ValidatorDetails = () => {
   const { id } = useParams();
@@ -9,21 +9,14 @@ const ValidatorDetails = () => {
 
   useEffect(() => {
     const fetchValidatorDetails = async () => {
-      try {
-        const result = await axios.get(`https://beaconcha.in/api/v1/validator/${id}`);
-        setDetails(result.data.data);
-      } catch (error) {
-        console.error("Error fetching validator details", error);
-      }
+        const result = await fetchValidatorDetailsApi(id);
+        setDetails(result);
     };
 
     const fetchValidatorAttestations = async () => {
-      try {
-        const result = await axios.get(`https://beaconcha.in/api/v1/validator/${id}/attestations`);
-        setAttestations(result.data.data);
-      } catch (error) {
-        console.error("Error fetching validator attestations", error);
-      }
+      const result = await fetchValidatorAttestationsApi(id);
+        setAttestations(result);
+     
     };
 
     fetchValidatorDetails();

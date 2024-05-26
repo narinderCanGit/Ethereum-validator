@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar';
 import Welcome from './components/Welcome';
 import ValidatorDetails from './components/ValidatorDetails';
 import ValidatorSearch from './components/ValidatorSearch';
+import ErrorBoundary from './components/ErrorBoundary';
 import './App.css';
 
 const App = () => (
@@ -14,12 +15,14 @@ const App = () => (
       <div className="main-content">
         <Sidebar />
         <div className="content">
+        <ErrorBoundary>
           <Routes>
             <Route path="/Welcome" element={<Welcome />} />
             <Route path="/Validator/:id" element={<ValidatorDetails />} />
             <Route path="/Validator" element={<ValidatorSearch />} />
             <Route path="/" element={<Welcome />} />
           </Routes>
+        </ErrorBoundary>
         </div>
       </div>
     </div>
