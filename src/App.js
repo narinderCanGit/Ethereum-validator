@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Welcome from './components/Welcome';
 import ValidatorDetails from './components/ValidatorDetails';
 import ValidatorSearch from './components/ValidatorSearch';
-import ErrorBoundary from './components/ErrorBoundary';
+import ErrorFallback from './components/ErrorBoundary';
 import './App.css';
 
 const App = () => (
@@ -15,7 +16,7 @@ const App = () => (
       <div className="main-content">
         <Sidebar />
         <div className="content">
-        <ErrorBoundary>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Routes>
             <Route path="/Welcome" element={<Welcome />} />
             <Route path="/Validator/:id" element={<ValidatorDetails />} />

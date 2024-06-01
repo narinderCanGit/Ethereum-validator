@@ -23,7 +23,7 @@ const ValidatorDetails = () => {
     fetchValidatorAttestations();
   }, [id]);
 
-  const detailKeys = Object.keys(details);
+  const detailKeys = details && Object.keys(details);
 
   return (
     <div className="validator-details">
